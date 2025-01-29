@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('login successful');
                 localStorage.setItem('loggedInUser', JSON.stringify(user));
                 // Redirect to dashboard page
-                window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
+                window.location.href = 'https://enz048.github.io/Expense-Tracker/';
             } else {
                 alert('Invalid email or password');
             }

@@ -1,8 +1,6 @@
-// Updated JavaScript to retain transaction history and summary after re-login
-
 const saveUser = (firstName, lastName, email, password) => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    users.push({ firstName, lastName, email, password, transactions: [] }); // Added transactions field to store user transactions
+    users.push({ firstName, lastName, email, password, transactions: [] });
     localStorage.setItem('users', JSON.stringify(users));
 };
 
@@ -30,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (user) {
                 alert('login successful');
                 localStorage.setItem('loggedInUser', JSON.stringify(user));
-                // Redirect to dashboard page
                 window.location.href = 'https://enz048.github.io/Expense-Tracker/';
             } else {
                 alert('Invalid email or password');
@@ -61,14 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
             saveUser(firstName, lastName, email, password);
             alert('Registration successful!');
 
-            // Clear input fields
             document.getElementById('firstName').value = '';
             document.getElementById('lastName').value = '';
             document.getElementById('email').value = '';
             document.getElementById('password').value = '';
             document.getElementById('confirmPassword').value = '';
 
-            // Redirect to login page
             window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
         });
     }

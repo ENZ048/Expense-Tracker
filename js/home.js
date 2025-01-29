@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Retrieve the logged-in user's data from localStorage
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || null;
 
     if (loggedInUser) {
@@ -9,20 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const greetUser = document.querySelector('.welcome-msg');
         greetUser.textContent = `Welcome, ${loggedInUser.firstName}!`;
 
-        // Retrieve the transactions from the logged-in user's data
         const transactions = loggedInUser.transactions || [];
 
         console.log(loggedInUser.transactions);
 
-        // Display all transactions in the history
         transactions.forEach(transaction => {
             addTransactionToHistory(transaction.type, transaction.description, transaction.category, transaction.amount);
         });
 
-        // Update the summary from the transactions
         updateSummaryFromTransactions(transactions);
     } else {
-        // Redirect to login page if no user is logged in
         window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
     }
 });
@@ -93,29 +88,24 @@ document.getElementById('addTransaction').addEventListener('click', (e) => {
         return;
     }
 
-    // Create transaction object
     const transaction = { type, description, category, amount };
 
-    // Add transaction to history table
     addTransactionToHistory(type, description, category, amount);
 
-    // Update summary section
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser) {
         loggedInUser.transactions = loggedInUser.transactions || [];
-        loggedInUser.transactions.push(transaction); // Save new transaction
+        loggedInUser.transactions.push(transaction);
 
-        // Save updated user data back to localStorage
         localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
 
-        // Update the summary using the updated transactions
         updateSummaryFromTransactions(loggedInUser.transactions);
 
         console.log(loggedInUser);
     }
 
     updateCharts(loggedInUser.transactions);
-    // Reset form
+    
     document.getElementById('description').value = '';
     document.getElementById('amount').value = '';
     document.querySelector('.dropdownButton').textContent = 'Select Category';
@@ -125,16 +115,11 @@ document.getElementById('expenseList').addEventListener('click', (e) => {
     if (e.target.classList.contains('delete-btn')) {
         const row = e.target.closest('tr');
         const description = row.querySelector('td:nth-child(2)').textContent;
-        const category = row.querySelector(".category-td").textContent.trim();
-        const amount = parseFloat(row.querySelector("td:nth-child(4)").textContent.replace("₹", ""));
-
-
-        // Update transactions
+        
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         if (loggedInUser) {
             loggedInUser.transactions = loggedInUser.transactions.filter(transaction => transaction.description !== description);
 
-            // Save updated user data back to localStorage
             const users = JSON.parse(localStorage.getItem('users')) || [];
             const userIndex = users.findIndex(user => user.email === loggedInUser.email);
             if (userIndex !== -1) {
@@ -144,18 +129,11 @@ document.getElementById('expenseList').addEventListener('click', (e) => {
 
             localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
 
-
-            // Update the summary using the updated transactions
             updateSummaryFromTransactions(loggedInUser.transactions);
 
             updateCharts(loggedInUser.transactions);
 
-            // Remove the row from the table
             row.remove();
-
-
-
-
         }
     }
 });
@@ -163,41 +141,34 @@ document.getElementById('expenseList').addEventListener('click', (e) => {
 const logOutBtn = document.querySelector('.log-out');
 
 logOutBtn.addEventListener('click', () => {
-    // Ensure the user's transaction data remains in localStorage
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser) {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const userIndex = users.findIndex(user => user.email === loggedInUser.email);
         if (userIndex !== -1) {
-            users[userIndex] = loggedInUser; // Update the user record
-            localStorage.setItem('users', JSON.stringify(users)); // Save back to localStorage
+            users[userIndex] = loggedInUser;
+            localStorage.setItem('users', JSON.stringify(users));
         }
     }
-
-    // Remove loggedInUser session (but keep their data intact)
     localStorage.removeItem('loggedInUser');
     window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
 });
 
-// Function to initialize dropdowns
 function initializeDropdowns() {
     const dropdownButtons = document.querySelectorAll('.dropdownButton');
     const dropdownMenus = document.querySelectorAll('.dropdownMenu');
     const categoryInputs = document.querySelectorAll('.category');
 
-    // Close all dropdowns
     function closeAllDropdowns() {
         dropdownMenus.forEach((menu) => {
             menu.style.display = 'none';
         });
     }
 
-    // Attach functionality to each dropdown
     dropdownButtons.forEach((button, index) => {
         const menu = dropdownMenus[index];
         const categoryInput = categoryInputs[index];
 
-        // Toggle dropdown menu visibility
         button.addEventListener('click', (event) => {
             event.stopPropagation();
             const isVisible = menu.style.display === 'block';
@@ -205,7 +176,6 @@ function initializeDropdowns() {
             menu.style.display = isVisible ? 'none' : 'block';
         });
 
-        // Handle item selection
         menu.addEventListener('click', (event) => {
             event.stopPropagation();
             const selectedItem = event.target.closest('li');
@@ -213,20 +183,18 @@ function initializeDropdowns() {
                 const value = selectedItem.getAttribute('data-value');
                 const text = selectedItem.textContent.trim();
 
-                button.textContent = text; // Update button label
-                categoryInput.value = value; // Update hidden input value
-                menu.style.display = 'none'; // Close menu
+                button.textContent = text;
+                categoryInput.value = value;
+                menu.style.display = 'none';
             }
         });
     });
 
-    // Close dropdowns when clicking outside
     document.addEventListener('click', () => {
         closeAllDropdowns();
     });
 }
 
-// Initialize dropdowns on page load
 initializeDropdowns();
 
 let pieChartInstance;
@@ -236,14 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const pieChartCanvas = document.getElementById('pieChart').getContext('2d');
     const lineChartCanvas = document.getElementById('lineChart').getContext('2d');
 
-    // Initialize Pie Chart
     pieChartInstance = new Chart(pieChartCanvas, {
         type: 'pie',
         data: {
-            labels: ['No Expenses'], // Default data
+            labels: ['No Expenses'],
             datasets: [{
                 label: 'Expenses by Category',
-                data: [1], // Default data
+                data: [1],
                 backgroundColor: [
                     '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
                 ],
@@ -254,22 +221,21 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     });
 
-    // Initialize Line Chart
     lineChartInstance = new Chart(lineChartCanvas, {
         type: 'line',
         data: {
-            labels: ['No Transactions'], // Default data
+            labels: ['No Transactions'],
             datasets: [
                 {
                     label: 'Expenses',
-                    data: [0], // Default data
+                    data: [0],
                     borderColor: 'rgba(255, 99, 132, 1)',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     fill: true,
                 },
                 {
                     label: 'Income',
-                    data: [0], // Default data
+                    data: [0],
                     borderColor: 'rgba(54, 162, 235, 1)',
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     fill: true,
@@ -291,7 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function updateCharts(transactions) {
-    // Calculate data for the pie chart (expense categories)
     const categoryTotals = {};
     transactions.forEach((transaction) => {
         if (transaction.type === "expense") {
@@ -302,12 +267,10 @@ function updateCharts(transactions) {
     const pieLabels = Object.keys(categoryTotals);
     const pieData = Object.values(categoryTotals);
 
-    // Update Pie Chart Data
     pieChartInstance.data.labels = pieLabels.length > 0 ? pieLabels : ["No Expenses"];
-    pieChartInstance.data.datasets[0].data = pieData.length > 0 ? pieData : [1]; // Prevent empty dataset errors
+    pieChartInstance.data.datasets[0].data = pieData.length > 0 ? pieData : [1];
     pieChartInstance.update();
 
-    // Prepare data for the line chart (Income vs Expenses over time)
     const expenseData = [];
     const incomeData = [];
     const labels = [];
@@ -323,7 +286,6 @@ function updateCharts(transactions) {
         }
     });
 
-    // Update Line Chart Data
     lineChartInstance.data.labels = labels.length > 0 ? labels : ["No Transactions"];
     lineChartInstance.data.datasets[0].data = expenseData.length > 0 ? expenseData : [0];
     lineChartInstance.data.datasets[1].data = incomeData.length > 0 ? incomeData : [0];
@@ -339,32 +301,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatMessagesDiv = document.getElementById('chatMessages');
     const chatOverlay = document.querySelector('.chat-overlay');
 
-
-    // Show chatbot when "Get Started" button is clicked
     getStartedBtn.addEventListener('click', () => {
         chatModal.classList.remove('hidden');
         chatOverlay.classList.add('active');
     });
 
-    // Hide chat modal
     closeChatBtn.addEventListener('click', () => {
         chatModal.classList.add('hidden');
         chatOverlay.classList.remove('active');
     });
 
-    // Send message logic
     sendMessageBtn.addEventListener('click', async () => {
         const userMessage = userMessageInput.value.trim();
         if (!userMessage) return;
 
-        // Append user's message to chat
         appendMessage('You', userMessage, 'user');
 
-        // Clear input field
         userMessageInput.value = '';
 
-        // Fetch response from backend or Gemini API
-        const response = await fetchGeminiResponse(userMessage); // Replace 'User' with actual user name
+        const response = await fetchGeminiResponse(userMessage); 
         appendMessage('Marco', response, 'bot');
     });
 
@@ -373,8 +328,6 @@ document.addEventListener("DOMContentLoaded", () => {
         messageElement.classList.add('message', type);
         messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
         chatMessagesDiv.appendChild(messageElement);
-
-        // Scroll to the latest message
         chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
     }
 
@@ -392,8 +345,7 @@ Users name is ${loggedInUser.firstName}
 `;
 
         const APIKEY = 'AIzaSyBptXu7u5CJl41rrAko64Ire4ZVjsAu3FA';
-        // Gemini API URL and Payload
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${APIKEY}`; // Replace with your API key
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${APIKEY}`;
         const payload = {
             contents: [
                 {
@@ -465,12 +417,12 @@ document.querySelector('.check-tax-btn').addEventListener('click', () => {
 
     document.getElementById("payBtn").addEventListener("click", function () {
         var options = {
-            key: "rzp_test_H4lkIntkGdsyi4", // Replace with your Razorpay Test Key
-            amount: tax, // Amount in paise (₹500.00)
+            key: "rzp_test_H4lkIntkGdsyi4",
+            amount: tax,
             currency: "INR",
             name: "Tax Payment",
             description: "Demo Tax Payment",
-            image: "https://yourwebsite.com/logo.png", // Optional logo
+            image: "https://yourwebsite.com/logo.png",
             handler: function (response) {
                 alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
             },
@@ -488,8 +440,6 @@ document.querySelector('.check-tax-btn').addEventListener('click', () => {
         rzp.open();
     });
 });
-
-
 
 document.getElementById("closeModal").addEventListener("click", function () {
     document.querySelector(".taxoverlay").style.display = "none";

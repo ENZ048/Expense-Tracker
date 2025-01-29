@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('login successful');
                 localStorage.setItem('loggedInUser', JSON.stringify(user));
                 // Redirect to dashboard page
-                window.location.href = 'http://127.0.0.1:3000/index.html';
+                window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
             } else {
                 alert('Invalid email or password');
             }
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('confirmPassword').value = '';
 
             // Redirect to login page
-            window.location.href = 'http://127.0.0.1:3000/login-section/login-page.html';
+            window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
         });
     }
 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (signUpPageBtn) {
         signUpPageBtn.addEventListener('click', () => {
             console.log('signUpPageBtn clicked');
-            window.location.href = 'http://127.0.0.1:3000/login-section/signup-page.html';
+            window.location.href = 'https://enz048.github.io/Expense-Tracker/register.html';
         });
     }
 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginPageBtn) {
         loginPageBtn.addEventListener('click', () => {
             console.log('loginPageBtn clicked');
-            window.location.href = 'http://127.0.0.1:3000/login-section/login-page.html';
+            window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
         });
     }
 });

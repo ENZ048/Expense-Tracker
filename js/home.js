@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSummaryFromTransactions(transactions);        
     } else {
         // Redirect to login page if no user is logged in
-        window.location.href = 'http://127.0.0.1:3000/login-section/login-page.html';
+        window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
     }
 });
 
@@ -176,7 +176,7 @@ logOutBtn.addEventListener('click', () => {
 
     // Remove loggedInUser session (but keep their data intact)
     localStorage.removeItem('loggedInUser');
-    window.location.href = 'http://127.0.0.1:3000/login-section/login-page.html';
+    window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
 });
 
 // Function to initialize dropdowns

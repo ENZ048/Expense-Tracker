@@ -1,0 +1,512 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "League Spartan", sans-serif;
+    background-color: #AFDBF5;
+    color: rgb(19, 76, 109);
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+  }
+  
+  .logo {
+    margin: 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .logo img {
+    margin-left: 2rem;
+  }
+  
+  .log-out{
+    cursor: pointer;  
+  }
+  
+  .log-out:hover{
+    color: red;
+    transform: scale(1.1);
+  }
+  
+  .greet-user{
+    margin: 2rem 0;
+  }
+  
+  .summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .summary-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .icon-container {
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .label {
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 1rem;
+  }
+  
+  .value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+  }
+  
+  .charts-container {
+    margin-top: 2rem;
+    height: auto;
+    border-radius: 0.5rem;
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .chart-card {
+    background-color: white;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .card {
+    margin-top: 2rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    font-size: 0.8rem;
+    height: auto;
+  }
+  
+  .form-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    align-items: center;
+  }
+  
+  
+  #addTransaction {
+    margin-top: 1rem;
+  }
+  
+  .delete-btn{
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+  }
+  
+  .delete-btn:hover{
+    transform: scale(1.3);
+  }
+  
+  select {
+    margin-left: 0.5rem;
+    border-radius: 4px;
+    padding: 0.3rem;
+    border: 1px solid #ccc;
+  }
+  
+  #description,
+  #amount,
+  #budgetLimit {
+    padding: 0.3rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  select:focus,
+  #description:focus,
+  #amount:focus,
+  #budgetLimit:focus {
+    outline: none;
+    border: 2px solid rgb(64, 157, 214);
+  }
+  
+  .custom-dropdown {
+    position: relative;
+    display: inline-block;
+    max-width: 300px;
+  }
+  
+  .dropdownButton {
+    padding: 10px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .dropdownButton:hover {
+    background-color: #eee;
+    border-color: #bbb;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    width: 200px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    z-index: 1000;
+  }
+  
+  .dropdownMenu li {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu li img {
+    margin-right: 10px;
+  }
+  
+  .dropdownMenu li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f3f4f6;
+    border-radius: 4px;
+    margin-top: 2rem;
+  }
+  
+  th {
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+  
+  td {
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+  }
+  
+  .expense {
+    background-color: rgb(253, 206, 206);
+  }
+  .income {
+    background-color: rgb(111, 194, 166);
+  }
+  
+  .category-td {
+    padding: 1.5rem 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  
+  .blue-btn {
+    padding: 0.75rem;
+    border: none;
+    background-color: rgb(64, 157, 214);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+  }
+  
+  .blue-btn:hover{
+    background-color: rgb(46, 114, 169);
+    transform: scale(1.1);
+  }
+  
+  .budget-form {
+    margin-top: 3rem;
+    justify-content: space-evenly;
+  }
+  
+  #budgetForm{
+    width: 100%;
+  }
+  
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .ai-advisor p,
+  .tax-description {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    color: #6b7280;
+    line-height: 1.2em;
+  }
+  
+  /* Full-screen modal styles */
+  .chat-modal {
+    position: fixed;
+    top: 10%;
+    left: 15%;
+    width: 70%;
+    height: 80%;
+    background: #f4f4f9;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    border-radius: 15px;
+  }
+  
+  .chat-modal.hidden {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  
+  .chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    z-index: 999; /* Ensure it's below the chat modal but above the rest of the page */
+    display: none; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .chat-overlay.active {
+    display: block; /* Show when the modal is active */
+    opacity: 1;
+  }
+  
+  .chat-header {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+  }
+  
+  .chat-header h2 {
+    margin: 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .chat-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+    width: 60%;
+    height: 100%;
+    background-color: #AFDBF5;
+  }
+  
+  .chatBox-div{
+    display: flex;
+    background-color: #4b5563;
+    height: 100%;
+  }
+  
+  .marco{
+    width: 40%;
+    height: 100%;
+    background-color: #AFDBF5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .chat-input {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .message{
+    margin: 1rem;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .chat-input button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .chat-input button:hover {
+    background-color: #0056b3;
+  }
+  
+  .budget-container{
+    padding: auto;
+  }
+  
+  .budget-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    /* background-color: #007bff; */
+    gap: 1rem;
+  }
+  
+  .budget-card {
+    background: #fff;
+    min-width: 200px;
+    width: 600px;
+    
+    padding: 2rem;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    
+    text-align: center;
+  }
+  
+  .progress-bar-container {
+    background: #ddd;
+    width: 100%;
+    height: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #4caf50;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  .delete-budget-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .delete-budget-btn:hover {
+    background-color: #cc0000;
+  }
+  
+  
+  @media (max-width: 425px) {
+    .conatiner {
+      width: 100vw;
+      padding: 0rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    nav {
+      padding: 0;
+      width: 500px;
+    }
+    .summary {
+      width: 550px;
+    }
+    .card,
+    .charts-container {
+      width: 500px;
+      margin: 2rem 1rem;
+    }
+    .transaction-history {
+      width: 550px;
+      padding: 1rem;
+    }
+  }
+  
+  @media (min-width: 426px) {
+    .summary-card {
+      width: 30%;
+    }
+  }
+  
+  @media (max-width: 769px) {
+    .form-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  
+    .marco{
+      display: none;
+    }
+  }
+  
+  
+  

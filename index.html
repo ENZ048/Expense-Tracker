@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendSense</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <img src="./assets/bar-chart.png" alt="logo" width="50px">
+                <h1>SpendSense</h1>
+            </div>
+
+            <h1 class="log-out">Log Out</h1>
+        </nav>
+
+        <div class="greet-user">
+            <h1 class="welcome-msg"></h1>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card">
+                <div>
+                    <p class="label">Total Expenses</p>
+                    <p class="value" id="totalExpenses">₹ 0</p>
+                </div>
+
+                <div class="icon-container">
+                    <img src="./assets/icons8-expense-48.png" alt="Expense">
+                </div>
+            </div>
+            <div class="summary-card">
+                <div>
+                    <p class="label">Total Income</p>
+                    <p class="value" id="totalIncome">₹ 0</p>
+                </div>
+
+                <div class="icon-container">
+                    <img src="./assets/icons8-income-48.png" alt="Expense">
+                </div>
+            </div>
+            <div class="summary-card">
+                <div>
+                    <p class="label">Balance</p>
+                    <p class="value" id="totalBalance">₹ 0</p>
+                </div>
+
+                <div class="icon-container">
+                    <img src="./assets/icons8-saving-32.png" alt="Expense" width="45px">
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-overlay"></div>
+        <div class="charts-container">
+            <div class="chart-card">
+                <div class="card-title">
+                    <img src="./assets/icons8-pie-chart-64.png" alt="Pie Chart">
+                    <h2>Expense Overview</h2>
+                </div>
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="card-title">
+                    <img src="./assets/icons8-line-chart-48.png" alt="Line Chart">
+                    <h2>Income Trends</h2>
+                </div>
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+
+        <div class="add-transaction card">
+            <div class="card-title">
+                <img src="./assets/icons8-add-48.png" alt="Add">
+                <h2>Add Transaction</h2>
+            </div>
+
+            <form class="transactionForm">
+                <div class="form-container">
+                    <div>
+                        <label for="type">Type:</label>
+                        <select id="type" name="type">
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" name="description">
+                    </div>
+
+                    <div>
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" name="amount">
+                    </div>
+
+
+                    <div class="custom-dropdown">
+                        <button class="dropdownButton" type="button">Select Category</button>
+                        <ul class="dropdownMenu">
+                            <li data-value="income">
+                                <img src="./assets/icons8-income-48.png" alt="Income" width="20"> Income
+                            </li>
+                            <li data-value="groceries">
+                                <img src="./assets/icons8-grocery-48.png" alt="Groceries" width="20"> Groceries
+                            </li>
+                            <li data-value="rent">
+                                <img src="./assets/icons8-rent-48.png" alt="Rent" width="20"> Rent
+                            </li>
+                            <li data-value="utilities">
+                                <img src="./assets/icons8-utilities-48.png" alt="Utilities" width="20"> Utilities
+                            </li>
+                            <li data-value="transportation">
+                                <img src="./assets/icons8-transportation-48.png" alt="Transportation" width="20">
+                                Transportation
+                            </li>
+                            <li data-value="entertainment">
+                                <img src="./assets/icons8-entertainment-48.png" alt="Entertainment" width="20">
+                                Entertainment
+                            </li>
+                            <li data-value="other">
+                                <img src="./assets/icons8-other-48.png" alt="Other" width="20"> Other
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="transactionCategory" class="category transaction-category" />
+                </div>
+                <button class="blue-btn" id="addTransaction">Add Transaction</button>
+            </form>
+        </div>
+
+        <div class="transaction-history card">
+            <div class="card-title">
+                <img src="./assets/icons8-transaction-history-64.png" alt="Transaction History" width="50px">
+                <h1>Transaction History</h1>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseList">
+                    <!-- <tr class="expense">
+                        <td>Expense</td>
+                        <td>Holiday</td>
+                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
+                                width="30px">Entertainment</td>
+                        <td>₹ 5000</td>
+                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
+                    </tr>
+                    <tr class="income">
+                        <td>Expense</td>
+                        <td>Holiday</td>
+                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
+                                width="30px">Entertainment</td>
+                        <td>₹ 5000</td>
+                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
+                    </tr>
+                    <tr class="expense">
+                        <td>Expense</td>
+                        <td>Holiday</td>
+                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
+                                width="30px">Entertainment</td>
+                        <td>₹ 5000</td>
+                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
+                    </tr>
+                    <tr class="expense">
+                        <td>Expense</td>
+                        <td>Holiday</td>
+                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
+                                width="30px">Entertainment</td>
+                        <td>₹ 5000</td>
+                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
+                    </tr>
+                    <tr class="income">
+                        <td>Expense</td>
+                        <td>Holiday</td>
+                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
+                                width="30px">Entertainment</td>
+                        <td>₹ 5000</td>
+                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- <div class="budget-container card">
+            <div class="card-title">
+                <img src="./assets/icons8-budget-48.png" alt="Budget">
+                <h2>Budget Manager</h2>
+            </div>
+
+            <div class="budget-content">
+                <form id="budgetForm">
+                    <div class="form-container budget-form">
+                        <div class="custom-dropdown">
+                            <button class="dropdownButton budget-Category-Btn" type="button">Select Category</button>
+                            <ul class="dropdownMenu">
+                                <li data-value="groceries">
+                                    <img src="./assets/icons8-grocery-48.png" alt="Groceries" width="20"> Groceries
+                                </li>
+                                <li data-value="rent">
+                                    <img src="./assets/icons8-rent-48.png" alt="Rent" width="20"> Rent
+                                </li>
+                                <li data-value="utilities">
+                                    <img src="./assets/icons8-utilities-48.png" alt="Utilities" width="20"> Utilities
+                                </li>
+                                <li data-value="transportation">
+                                    <img src="./assets/icons8-transportation-48.png" alt="Transportation" width="20">
+                                    Transportation
+                                </li>
+                                <li data-value="entertainment">
+                                    <img src="./assets/icons8-entertainment-48.png" alt="Entertainment" width="20">
+                                    Entertainment
+                                </li>
+                                <li data-value="other">
+                                    <img src="./assets/icons8-other-48.png" alt="Other" width="20"> Other
+                                </li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="budgetCategory" class="category budget-category" />
+                        <div>
+                            <label>Monthly Limit (₹)</label>
+                            <input type="number" id="budgetAmount" min="0" step="0.01" required>
+                        </div>
+                        <div>
+                            <button type="submit" class="blue-btn" id="setBudgetBtn">Set Budget</button>
+                        </div>
+                    </div>
+    
+                </form>
+                <div id="budgetContainer"></div>
+            </div>
+
+            
+        </div> -->
+
+        <div class="ai-advisor card">
+            <div class="card-title">
+                <img src="./assets/experts.png" alt="eli" width="80px">
+                <h2>eli - <i>Your personal Financial Advisor</i></h2>
+            </div>
+            <p><i>Meet eli - your witty, no-nonsense AI Financial Advisor who's here to save your wallet (and your
+                    sanity).
+                    <br>
+                    eli doesn't judge your coffee addiction or your late-night online shopping sprees. Instead, he'll
+                    gently remind you that “maybe you don't need another pair of sneakers when your budget is already
+                    running a marathon.”
+                    <br>
+                    Powered by the Gemini API, eli is a financial wizard with a sarcastic streak. He'll turn your
+                    chaotic expense habits into a masterpiece of organized budgets, all while dropping the occasional
+                    dad joke to lighten the load:
+                    "Why was the budget so well-behaved? Because it knew how to mind its cents!"
+                    <br>
+                    Whether it's tracking expenses, setting budgets, or even giving you a nudge before you hit “Add to
+                    Cart,” eli's got your back. Think of him as the quirky accountant you never knew you needed.
+                    <br>
+                    Ask him any financial advice - he's always ready to help! 😊</i>
+            </p>
+            <button class="blue-btn chatbotBtn">Get Started</button>
+        </div>
+
+        <div class="chat-overlay"></div>
+        <div id="chatModal" class="chat-modal hidden">
+            <div class="chat-header">
+                <h2>eli - Your Witty Finance Advisor</h2>
+                <button id="closeChat" class="close-btn">&times;</button>
+            </div>
+
+            <div class="chatBox-div">
+                <div class="marco">
+                    <dotlottie-player src="https://lottie.host/dc16e43f-3400-457c-8d16-6f02c95051c9/3vSgxbKIVn.lottie"
+                        background="transparent" speed="1" style="width: 300px; height: 300px" loop
+                        autoplay></dotlottie-player>
+                </div>
+                <div class="chat-body">
+                    <div id="chatMessages" class="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="userMessage" placeholder="Type your message..." />
+                        <button id="sendMessage" class="blue-btn">Send</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="check-taxes card">
+            <div class="card-title">
+                <img src="./assets/icons8-calculator-48.png" alt="Calculator">
+                <h2>Check Your Taxes</h2>
+            </div>
+
+            <div class="tax-description">
+                <p>With great rupees comes great responsibility... to pay taxes! Don't worry; we've got you covered with
+                    a simple and fun way to understand how much you owe (or don't owe) to the taxman. Here's the
+                    breakdown:</p>
+                <ul>
+                    <li><strong>Less than ₹3 lakh?</strong> Zero taxes! Go ahead, treat yourself to something
+                        nice—you've earned it!</li>
+                    <li><strong>₹3 lakh to ₹5 lakh?</strong> Only 5%! That's just a small nibble from your earnings.
+                    </li>
+                    <li><strong>₹5 lakh to ₹6 lakh?</strong> Still 5%! Your budgeting skills are impeccable!</li>
+                    <li><strong>₹6 lakh to ₹9 lakh?</strong> 10%, but hey, you're doing well in the tax game!</li>
+                    <li><strong>₹9 lakh to ₹12 lakh?</strong> 15%! You're contributing to the nation's progress while
+                        thriving!</li>
+                    <li><strong>₹12 lakh to ₹15 lakh?</strong> 20%—a bit heavier, but your finances are solid!</li>
+                    <li><strong>Above ₹15 lakh?</strong> 30% goes to taxes, but you're living the high life, champ!</li>
+                </ul>
+
+                <p><em>Need help managing your finances or understanding these tax rules better? Head over to eli, your
+                        go-to financial advisor, for expert tips and personalized advice!</em></p>
+            </div>
+
+            <button class="blue-btn">Check Taxes</button>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="./js/home.js"></script>
+</body>
+
+</html>

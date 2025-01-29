@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Update the summary from the transactions
-        updateSummaryFromTransactions(transactions);        
+        updateSummaryFromTransactions(transactions);
     } else {
         // Redirect to login page if no user is logged in
         window.location.href = 'https://enz048.github.io/Expense-Tracker/login.html';
@@ -439,7 +439,7 @@ document.querySelector('.check-tax-btn').addEventListener('click', () => {
 
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || null;
 
-    if(loggedInUser){
+    if (loggedInUser) {
         const transactions = loggedInUser.transactions || [];
 
         transactions.forEach((transaction) => {
@@ -452,13 +452,15 @@ document.querySelector('.check-tax-btn').addEventListener('click', () => {
     incomeRes.textContent = `Total Income : ${totalIncome}`;
 
     let tax = 0;
-        if (totalIncome > 1500000) tax = totalIncome * 0.3;
-        else if (totalIncome > 1200000) tax = totalIncome * 0.2;
-        else if (totalIncome > 900000) tax = totalIncome * 0.15;
-        else if (totalIncome > 600000) tax = totalIncome * 0.1;
-        else if (totalIncome > 300000) tax = totalIncome * 0.05;
+    if (totalIncome > 1500000) tax = (totalIncome - 1500000) * 0.3 + 300000 * 0.2 + 300000 * 0.15 + 300000 * 0.1 + 300000 * 0.05;
+    else if (totalIncome > 1200000) tax = (totalIncome - 1200000) * 0.2 + 300000 * 0.15 + 300000 * 0.1 + 300000 * 0.05;
+    else if (totalIncome > 900000) tax = (totalIncome - 900000) * 0.15 + 300000 * 0.1 + 300000 * 0.05;
+    else if (totalIncome > 600000) tax = (totalIncome - 600000) * 0.1 + 300000 * 0.05;
+    else if (totalIncome > 500000) tax = (totalIncome - 500000) * 0.05;
+    else if (totalIncome > 300000) tax = (totalIncome - 300000) * 0.05;
 
-    
+
+
     taxResult.textContent = `Tax Amount = ${tax}`;
 
     document.getElementById("payBtn").addEventListener("click", function () {
@@ -481,7 +483,7 @@ document.querySelector('.check-tax-btn').addEventListener('click', () => {
                 color: "#007bff"
             }
         };
-    
+
         var rzp = new Razorpay(options);
         rzp.open();
     });
@@ -489,7 +491,7 @@ document.querySelector('.check-tax-btn').addEventListener('click', () => {
 
 
 
-document.getElementById("closeModal").addEventListener("click", function() {
-document.querySelector(".taxoverlay").style.display = "none";
-document.getElementById("taxModal").style.display = "none";
+document.getElementById("closeModal").addEventListener("click", function () {
+    document.querySelector(".taxoverlay").style.display = "none";
+    document.getElementById("taxModal").style.display = "none";
 });

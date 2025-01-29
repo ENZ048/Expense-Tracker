@@ -365,7 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Fetch response from backend or Gemini API
         const response = await fetchGeminiResponse(userMessage); // Replace 'User' with actual user name
-        appendMessage('Eli', response, 'bot');
+        appendMessage('Marco', response, 'bot');
     });
 
     function appendMessage(sender, message, type) {
@@ -381,11 +381,11 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchGeminiResponse(userMessage) {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || null;
         const prompt = `
-You are Eli, a friendly financial assistant in the SpendSense. Personalize your responses with the user's name and refer to yourself as Eli. Keep the tone professional, friendly, and slightly humorous. Here's how you should respond:
+You are Marco, a friendly financial assistant in the SpendSense. Personalize your responses with the user's name and refer to yourself as Marco. Keep the tone professional, friendly, and slightly humorous. Here's how you should respond:
 - User: "How can I save more money?"
-  Eli: "Hi, John! This is Eli. Saving money is all about planning. Start by cutting out unnecessary expenses, like subscriptions you don't use. And remember, saving is like planting seeds for your financial garden!"
+  Marco: "Hi, John! This is Marco. Saving money is all about planning. Start by cutting out unnecessary expenses, like subscriptions you don't use. And remember, saving is like planting seeds for your financial garden!"
 - User: "What's a budget?"
-  Eli: "Hey, John! Eli here. A budget is a plan for how you'll spend your money. It's like a roadmap to your financial success. Let's create one together!"
+  Marco: "Hey, John! Marco here. A budget is a plan for how you'll spend your money. It's like a roadmap to your financial success. Let's create one together!"
   
 Now answer the following user query: ${userMessage}.
 Users name is ${loggedInUser.firstName}
@@ -429,3 +429,67 @@ Users name is ${loggedInUser.firstName}
     }
 });
 
+document.querySelector('.check-tax-btn').addEventListener('click', () => {
+    document.querySelector(".taxoverlay").style.display = "block";
+    document.getElementById("taxModal").style.display = "block";
+    const incomeRes = document.querySelector('.total-income');
+    const taxResult = document.querySelector('#taxResult');
+
+    let totalIncome = 0;
+
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || null;
+
+    if(loggedInUser){
+        const transactions = loggedInUser.transactions || [];
+
+        transactions.forEach((transaction) => {
+            if (transaction.type === 'income') {
+                totalIncome += transaction.amount;
+            }
+        });
+    }
+
+    incomeRes.textContent = `Total Income : ${totalIncome}`;
+
+    let tax = 0;
+        if (totalIncome > 1500000) tax = totalIncome * 0.3;
+        else if (totalIncome > 1200000) tax = totalIncome * 0.2;
+        else if (totalIncome > 900000) tax = totalIncome * 0.15;
+        else if (totalIncome > 600000) tax = totalIncome * 0.1;
+        else if (totalIncome > 300000) tax = totalIncome * 0.05;
+
+    
+    taxResult.textContent = `Tax Amount = ${tax}`;
+
+    document.getElementById("payBtn").addEventListener("click", function () {
+        var options = {
+            key: "rzp_test_H4lkIntkGdsyi4", // Replace with your Razorpay Test Key
+            amount: tax, // Amount in paise (₹500.00)
+            currency: "INR",
+            name: "Tax Payment",
+            description: "Demo Tax Payment",
+            image: "https://yourwebsite.com/logo.png", // Optional logo
+            handler: function (response) {
+                alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+            },
+            prefill: {
+                name: `${loggedInUser.firstName}`,
+                email: `${loggedInUser.email}`,
+                contact: "9876543210"
+            },
+            theme: {
+                color: "#007bff"
+            }
+        };
+    
+        var rzp = new Razorpay(options);
+        rzp.open();
+    });
+});
+
+
+
+document.getElementById("closeModal").addEventListener("click", function() {
+document.querySelector(".taxoverlay").style.display = "none";
+document.getElementById("taxModal").style.display = "none";
+});

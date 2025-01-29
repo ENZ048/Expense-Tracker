@@ -159,120 +159,30 @@
                     </tr>
                 </thead>
                 <tbody id="expenseList">
-                    <!-- <tr class="expense">
-                        <td>Expense</td>
-                        <td>Holiday</td>
-                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
-                                width="30px">Entertainment</td>
-                        <td>₹ 5000</td>
-                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
-                    </tr>
-                    <tr class="income">
-                        <td>Expense</td>
-                        <td>Holiday</td>
-                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
-                                width="30px">Entertainment</td>
-                        <td>₹ 5000</td>
-                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
-                    </tr>
-                    <tr class="expense">
-                        <td>Expense</td>
-                        <td>Holiday</td>
-                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
-                                width="30px">Entertainment</td>
-                        <td>₹ 5000</td>
-                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
-                    </tr>
-                    <tr class="expense">
-                        <td>Expense</td>
-                        <td>Holiday</td>
-                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
-                                width="30px">Entertainment</td>
-                        <td>₹ 5000</td>
-                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
-                    </tr>
-                    <tr class="income">
-                        <td>Expense</td>
-                        <td>Holiday</td>
-                        <td class="category-td"><img src="./assets/icons8-entertainment-48.png" alt="Entertainment"
-                                width="30px">Entertainment</td>
-                        <td>₹ 5000</td>
-                        <td><img src="./assets/icons8-delete-50.png" alt="Delete" width="30px"></td>
-                    </tr> -->
+                    
                 </tbody>
             </table>
         </div>
 
-        <!-- <div class="budget-container card">
-            <div class="card-title">
-                <img src="./assets/icons8-budget-48.png" alt="Budget">
-                <h2>Budget Manager</h2>
-            </div>
-
-            <div class="budget-content">
-                <form id="budgetForm">
-                    <div class="form-container budget-form">
-                        <div class="custom-dropdown">
-                            <button class="dropdownButton budget-Category-Btn" type="button">Select Category</button>
-                            <ul class="dropdownMenu">
-                                <li data-value="groceries">
-                                    <img src="./assets/icons8-grocery-48.png" alt="Groceries" width="20"> Groceries
-                                </li>
-                                <li data-value="rent">
-                                    <img src="./assets/icons8-rent-48.png" alt="Rent" width="20"> Rent
-                                </li>
-                                <li data-value="utilities">
-                                    <img src="./assets/icons8-utilities-48.png" alt="Utilities" width="20"> Utilities
-                                </li>
-                                <li data-value="transportation">
-                                    <img src="./assets/icons8-transportation-48.png" alt="Transportation" width="20">
-                                    Transportation
-                                </li>
-                                <li data-value="entertainment">
-                                    <img src="./assets/icons8-entertainment-48.png" alt="Entertainment" width="20">
-                                    Entertainment
-                                </li>
-                                <li data-value="other">
-                                    <img src="./assets/icons8-other-48.png" alt="Other" width="20"> Other
-                                </li>
-                            </ul>
-                        </div>
-                        <input type="hidden" name="budgetCategory" class="category budget-category" />
-                        <div>
-                            <label>Monthly Limit (₹)</label>
-                            <input type="number" id="budgetAmount" min="0" step="0.01" required>
-                        </div>
-                        <div>
-                            <button type="submit" class="blue-btn" id="setBudgetBtn">Set Budget</button>
-                        </div>
-                    </div>
-    
-                </form>
-                <div id="budgetContainer"></div>
-            </div>
-
-            
-        </div> -->
-
         <div class="ai-advisor card">
             <div class="card-title">
-                <img src="./assets/experts.png" alt="eli" width="80px">
-                <h2>eli - <i>Your personal Financial Advisor</i></h2>
+                <img src="./assets/experts.png" alt="Marco" width="80px">
+                <h2>Marco - <i>Your personal Financial Advisor</i></h2>
             </div>
-            <p><i>Meet eli - your witty, no-nonsense AI Financial Advisor who's here to save your wallet (and your
+            <p><i>Meet Marco - your witty, no-nonsense AI Financial Advisor who's here to save your wallet (and your
                     sanity).
                     <br>
-                    eli doesn't judge your coffee addiction or your late-night online shopping sprees. Instead, he'll
+                    Marco doesn't judge your coffee addiction or your late-night online shopping sprees. Instead, he'll
                     gently remind you that “maybe you don't need another pair of sneakers when your budget is already
                     running a marathon.”
                     <br>
-                    Powered by the Gemini API, eli is a financial wizard with a sarcastic streak. He'll turn your
+                    Powered by the Gemini API, Marco is a financial wizard with a sarcastic streak. He'll turn your
                     chaotic expense habits into a masterpiece of organized budgets, all while dropping the occasional
                     dad joke to lighten the load:
                     "Why was the budget so well-behaved? Because it knew how to mind its cents!"
                     <br>
                     Whether it's tracking expenses, setting budgets, or even giving you a nudge before you hit “Add to
-                    Cart,” eli's got your back. Think of him as the quirky accountant you never knew you needed.
+                    Cart,” Marco got your back. Think of him as the quirky accountant you never knew you needed.
                     <br>
                     Ask him any financial advice - he's always ready to help! 😊</i>
             </p>
@@ -282,7 +192,7 @@
         <div class="chat-overlay"></div>
         <div id="chatModal" class="chat-modal hidden">
             <div class="chat-header">
-                <h2>eli - Your Witty Finance Advisor</h2>
+                <h2>Marco - Your Witty Finance Advisor</h2>
                 <button id="closeChat" class="close-btn">&times;</button>
             </div>
 
@@ -326,11 +236,23 @@
                     <li><strong>Above ₹15 lakh?</strong> 30% goes to taxes, but you're living the high life, champ!</li>
                 </ul>
 
-                <p><em>Need help managing your finances or understanding these tax rules better? Head over to eli, your
+                <p><em>Need help managing your finances or understanding these tax rules better? Head over to Marco, your
                         go-to financial advisor, for expert tips and personalized advice!</em></p>
             </div>
 
-            <button class="blue-btn">Check Taxes</button>
+            <button class="blue-btn check-tax-btn">Check Taxes</button>
+        </div>
+
+        <div class="taxoverlay" id="overlay"></div>
+        <div class="tax-modal" id="taxModal">
+            <div class="modal-header">
+                <span>Pay Your Tax</span>
+                <span class="close-btn" id="closeModal">&times;</span>
+            </div>
+            
+            <div class="total-income"></div>
+            <div class="result" id="taxResult">Tax Amount: ₹0</div>
+            <button class="pay-btn" id="payBtn">Pay Tax</button>
         </div>
 
     </div>

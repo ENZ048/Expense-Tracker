@@ -2,8 +2,14 @@
 
 🚀 A powerful and user-friendly **Expense Tracker** designed to help users **track their expenses**, **visualize financial trends**, and **improve money management**. This project was built as part of **Geekathon** and provides an intuitive and interactive experience.
 
+
 ---
 
+## 🚀 Live Demo
+🎯 [**Live Demo**](https://expense-tracker-neon-nine-30.vercel.app/)
+
+
+---
 ## 🎉 About Geekathon  
 This project was created during **Geekathon**, an innovative event by Geekster. Geekathon provides an excellent platform for aspiring developers to foster collaboration, learn practical web development skills, and solve real-world problems.  
 
@@ -41,10 +47,6 @@ This project was created during **Geekathon**, an innovative event by Geekster. 
 - Integrated **Razorpay Test API** for handling transactions.
 - Users can simulate payments for tracking finances.
 
----
-
-## 🚀 Live Demo
-🎯 [**Live Demo**](https://expense-tracker-neon-nine-30.vercel.app/)
 
 ---
 
@@ -64,12 +66,13 @@ This project was created during **Geekathon**, an innovative event by Geekster. 
 
 ```
 📦 Expense-Tracker
-├── 📁 assets              # Images, icons, and styles
-├── 📁 login-section       # Login & Register pages
-├── 📄 index.html          # Home Page
-├── 📄 script.js           # Main JavaScript logic
-├── 📄 style.css           # Main Styling
-└── 📄 README.md           # Documentation (You are here!)
+├── 📁 assets         # Images, icons
+├── 📁 css            # All CSS files
+├── 📁 js             # All JavaScript files
+├── 📄 index.html     # Home Page
+├── 📄 login.html     # Login Page
+├── 📄 register.html  # Register Page
+├── 📄 README.md      # Documentation (You are here!)
 ```
 
 
@@ -111,8 +114,9 @@ This project was created during **Geekathon**, an innovative event by Geekster. 
 
 ---
 
-## 🙌 Acknowledgements  
-Special thanks to **Geekathon** for providing this wonderful opportunity to showcase our skills and teamwork.  
+## 🤝 Acknowledgements
+This project was developed as part of **Geekathon**, hosted by **Geekster**. A huge thanks to the organizers for providing this opportunity to build and innovate! 🚀
+  
 
 ---
 

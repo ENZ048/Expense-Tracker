@@ -44,7 +44,7 @@ This project was created during **Geekathon**, an innovative event by Geekster. 
 ---
 
 ## 🚀 Live Demo
-🎯 [**Live Demo**](www.expense-tracker-neon-nine-30.vercel.app)
+🎯 [**Live Demo**](https://expense-tracker-neon-nine-30.vercel.app/)
 
 ---
 
